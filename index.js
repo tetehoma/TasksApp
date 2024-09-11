@@ -1,10 +1,28 @@
-
+const {select} = require ('@inquirer.prompts')
 
 //const start é a função principal que chama o menu
-const start = () => {
+const start = async () => {
     
     while (true) {
-        let option = "sair" 
+
+        const option = await select({
+            message : "Menu >",
+            choices : [
+                {
+                    value: "cadastrar meta",
+                    name: "Cadastrar"
+                },
+                {
+                    value: "listar",
+                    name: "Listar"
+                },
+                {
+                    value: "sair",
+                    name: "Sair"
+                }
+            ]
+        })
+
             switch (option) {
                 case "cadastrar":
                     console.log("vamos cadastrar")
