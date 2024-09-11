@@ -1,8 +1,8 @@
 
 
-
 //const start é a função principal que chama o menu
 const start = () => {
+    
     while (true) {
         let option = "sair" 
             switch (option) {
