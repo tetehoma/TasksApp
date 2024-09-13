@@ -1,5 +1,52 @@
-const {select} = require ('@inquirer/prompts')
+const {select, input, checkbox} = require ('@inquirer/prompts')
 
+//select - mostra uma lista de seleção
+//input - permite que o usuário entre com algum dado
+//checkbox - permite a modificação do estado de seleção
+
+let meta = {
+    value: "Tomar agua todos os dias",
+    checked: false,
+}
+let metas = [meta]
+
+//função que realiza o cadastro da meta
+
+const cadastrarMeta = async () => {
+    const meta = await input ({message: "Digite a meta:"})
+ //operadores de comparação
+    if(meta.length == 0){
+        console.log("A meta não pode ser vazia!")
+        return //interrompe a função
+    }
+    metas.push({
+        value: meta,
+        checked: false,
+    })
+
+}
+
+const listarMeta = async () => {
+    const respostas = await checkbox({
+        choices: [...metas]
+    })
+
+    if (respostas.length = 0){
+        message ("Nenhuma meta selecionada")
+        return
+    }
+    respostas.forEach((m) =>{
+        m.checked = false
+    })
+    respostas.forEach(resposta => {
+        const meta = metas.find((m) => {
+            return m.value === resposta
+          })
+          meta.checked = true
+
+    })
+    console.log("Metas marcadas como concluidas")
+}
 //const start é a função principal que chama o menu
 const start = async () => {
     
@@ -25,9 +72,11 @@ const start = async () => {
 
         switch (option) {
             case "cadastrar":
+               await cadastrarMeta()
+               console.log(metas)
                 break
             case "listar":
-                console.log("vamos listar")
+                await listarMeta()
                 break
             case "sair":
                 console.log("Até a próxima")
