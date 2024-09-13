@@ -8,7 +8,7 @@ let meta = {
     value: "Tomar agua todos os dias",
     checked: false,
 }
-let metas = [meta]
+let metas = [ meta ]
 
 //função que realiza o cadastro da meta
 
@@ -26,26 +26,43 @@ const cadastrarMeta = async () => {
 
 }
 
-const listarMeta = async () => {
+const listarMetas = async () => { 
     const respostas = await checkbox({
+        message: "Use as setas para mudar de metas, o espaço para marcar ou desmarcar e o enter para finalizar esta etapa.",
         choices: [...metas]
     })
-
-    if (respostas.length = 0){
-        message ("Nenhuma meta selecionada")
+    // esse if verifica se o usuario escreveu alguma meta
+    if (respostas.length == 0){
+        console.log("Nenhuma meta selecionada")
         return
     }
-    respostas.forEach((m) =>{
+    //desmarca todas as metas
+    metas.forEach((m) =>{
         m.checked = false
     })
-    respostas.forEach(resposta => {
+    //
+    respostas.forEach((resposta) => {
         const meta = metas.find((m) => {
-            return m.value === resposta
-          })
-          meta.checked = true
-
+            return m.value == resposta
+        })
+        meta.checked = true
     })
     console.log("Metas marcadas como concluidas")
+  }
+
+const metasRealizadas = async () => {
+    const realizadas = metas.filter((meta) => {
+        return meta.checked
+    })
+    if (realizadas.length == 0){
+        console.log("Nenhuma meta realizada")
+        return  //interrompe a função
+    }
+
+    await select({
+        message: "Meta realizadas",
+        choices: [...realizadas]
+    })
 }
 //const start é a função principal que chama o menu
 const start = async () => {
@@ -64,6 +81,10 @@ const start = async () => {
                     name: "Listar metas"
                 },
                 {
+                    value: "realizadas",
+                    name: "metas realizadas"
+                },
+                {
                     value: "sair",
                     name: "Sair"
                 }
@@ -76,7 +97,10 @@ const start = async () => {
                console.log(metas)
                 break
             case "listar":
-                await listarMeta()
+                await listarMetas()
+                break
+            case "realizadas":
+                await metasRealizadas()
                 break
             case "sair":
                 console.log("Até a próxima")
