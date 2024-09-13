@@ -31,15 +31,15 @@ const listarMetas = async () => {
         message: "Use as setas para mudar de metas, o espaço para marcar ou desmarcar e o enter para finalizar esta etapa.",
         choices: [...metas]
     })
+    metas.forEach((m) =>{
+        m.checked = false
+    })
     // esse if verifica se o usuario escreveu alguma meta
     if (respostas.length == 0){
         console.log("Nenhuma meta selecionada")
         return
     }
     //desmarca todas as metas
-    metas.forEach((m) =>{
-        m.checked = false
-    })
     //
     respostas.forEach((resposta) => {
         const meta = metas.find((m) => {
