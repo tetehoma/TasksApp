@@ -3,7 +3,7 @@ const {select, input, checkbox} = require ('@inquirer/prompts')
 //select - mostra uma lista de seleção
 //input - permite que o usuário entre com algum dado
 //checkbox - permite a modificação do estado de seleção
-
+let mensagem = "Bem vindo ao app de metas";
 let meta = {
     value: "Tomar agua todos os dias",
     checked: false,
@@ -16,14 +16,14 @@ const cadastrarMeta = async () => {
     const meta = await input ({message: "Digite a meta:"})
  //operadores de comparação
     if(meta.length == 0){
-        console.log("A meta não pode ser vazia!")
+        mensagem = "A meta não pode ser vazia!"
         return //interrompe a função
     }
-    metas.push({
-        value: meta,
-        checked: false,
-    })
-
+    //pega o valor digitado pelo input e coloca na lista de metas como falso
+    metas.push(
+        { value: meta, checked: false}
+    )
+    mensagem = "Meta cadastrada com sucesso!"
 }
 
 const listarMetas = async () => { 
@@ -36,7 +36,7 @@ const listarMetas = async () => {
     })
     // esse if verifica se o usuario escreveu alguma meta
     if (respostas.length == 0){
-        console.log("Nenhuma meta selecionada")
+        mensagem ="Nenhuma meta selecionada"
         return
     }
     //desmarca todas as metas
@@ -47,7 +47,7 @@ const listarMetas = async () => {
         })
         meta.checked = true
     })
-    console.log("Metas marcadas como concluidas")
+    mensagem = "Metas marcadas como concluidas"
   }
 
 const metasRealizadas = async () => {
@@ -55,7 +55,7 @@ const metasRealizadas = async () => {
         return meta.checked
     })
     if (realizadas.length == 0){
-        console.log("Nenhuma meta realizada")
+        mensagem = "Nenhuma meta realizada"
         return  //interrompe a função
     }
 
@@ -69,7 +69,7 @@ const metasAbertas = async () => {
         return!meta.checked
     })
     if (abertas.length == 0){
-        console.log("Nenhuma meta aberta")
+      mensagem = "Nenhuma meta aberta"
         return  //interrompe a função
     }
     await select({
@@ -93,7 +93,7 @@ const deletarMetas = async () => {
     })
 
     if(itensADeletar.length == 0) {
-        console.log("Nenhuma item para deletar")
+        mensagem = "Nenhuma item para deletar"
         return
     }
     //para cada meta encontrada será filtrada somente as que são diferentes do item
@@ -104,10 +104,20 @@ const deletarMetas = async () => {
     })
     console.log("Metas deletadas com sucesso!")
 }
+
+const mostrarMensagem = () => {
+    console.clear();
+    if (mensagem!= ""){
+        console.log(mensagem)
+        console.log("")
+        mensagem = ""
+    }
+}
 //const start é a função principal que chama o menu
 const start = async () => {
     
     while (true) {
+        mostrarMensagem()
 
         const option = await select({
             message : "Menu >",
@@ -142,7 +152,6 @@ const start = async () => {
         switch (option) {
             case "cadastrar":
                await cadastrarMeta()
-               console.log(metas)
                 break
             case "listar":
                 await listarMetas()
