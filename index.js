@@ -64,6 +64,19 @@ const metasRealizadas = async () => {
         choices: [...realizadas]
     })
 }
+const metasAbertas = async () => {
+    const abertas = metas.filter((meta) => {
+        return!meta.checked
+    })
+    if (abertas.length == 0){
+        console.log("Nenhuma meta aberta")
+        return  //interrompe a função
+    }
+    await select({
+        message: "Meta abertas",
+        choices: [...abertas]
+    })
+}
 //const start é a função principal que chama o menu
 const start = async () => {
     
@@ -85,6 +98,10 @@ const start = async () => {
                     name: "metas realizadas"
                 },
                 {
+                    value: "abertas",
+                    name: "metas abertas"
+                },
+                {
                     value: "sair",
                     name: "Sair"
                 }
@@ -101,6 +118,9 @@ const start = async () => {
                 break
             case "realizadas":
                 await metasRealizadas()
+                break
+            case "abertas":
+                await metasAbertas()
                 break
             case "sair":
                 console.log("Até a próxima")
