@@ -1,0 +1,18 @@
+[
+  {
+    "value": "Tomar 3L de água por dia",
+    "checked": true
+  },
+  {
+    "value": "andar a cavalo",
+    "checked": false
+  },
+  {
+    "value": "sair de bondinho",
+    "checked": false
+  },
+  {
+    "value": "tomar suco de maracuja",
+    "checked": true
+  }
+]
