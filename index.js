@@ -79,19 +79,24 @@ const metasAbertas = async () => {
 
 }
 const deletarMetas = async () => {
+
+    //foi criada uma nova lista para metasDesmarcadas através do map, somente com as que estáo falsas
     const metasDesmarcadas = metas.map((meta) => {
         return {
             value: meta.value, checked: false}
     })
+    //será colocado um checkbox com as metas Desmarcadas, igual ao usado no listar metas
     const itensADeletar = await checkbox({
         message: "Selecione o item para deletar",
         choices: [...metasDesmarcadas],
         instructions: false,
     })
+
     if(itensADeletar.length == 0) {
         console.log("Nenhuma item para deletar")
         return
     }
+    //para cada meta encontrada será filtrada somente as que são diferentes do item
     itensADeletar.forEach((item) => {
         metas = metas.filter((meta) => {
             return meta.value!= item
