@@ -60,7 +60,7 @@ const metasRealizadas = async () => {
     }
 
     await select({
-        message: "Meta realizadas",
+        message: "Meta realizadas" + realizadas.length,
         choices: [...realizadas]
     })
 }
@@ -73,9 +73,31 @@ const metasAbertas = async () => {
         return  //interrompe a função
     }
     await select({
-        message: "Meta abertas",
+        message: "Meta abertas" + abertas.length,
         choices: [...abertas]
     })
+
+}
+const deletarMetas = async () => {
+    const metasDesmarcadas = metas.map((meta) => {
+        return {
+            value: meta.value, checked: false}
+    })
+    const itensADeletar = await checkbox({
+        message: "Selecione o item para deletar",
+        choices: [...metasDesmarcadas],
+        instructions: false,
+    })
+    if(itensADeletar.length == 0) {
+        console.log("Nenhuma item para deletar")
+        return
+    }
+    itensADeletar.forEach((item) => {
+        metas = metas.filter((meta) => {
+            return meta.value!= item
+        })
+    })
+    console.log("Metas deletadas com sucesso!")
 }
 //const start é a função principal que chama o menu
 const start = async () => {
@@ -102,6 +124,10 @@ const start = async () => {
                     name: "metas abertas"
                 },
                 {
+                    value: "deletar",
+                    name: "deletar metas"
+                },
+                {
                     value: "sair",
                     name: "Sair"
                 }
@@ -122,6 +148,9 @@ const start = async () => {
             case "abertas":
                 await metasAbertas()
                 break
+            case "deletar":
+                await deletarMetas()
+                break    
             case "sair":
                 console.log("Até a próxima")
                 return //interrompe a função
