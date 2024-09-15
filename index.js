@@ -14,6 +14,7 @@ let metas
 const carregarMetas = async() => {
     try {
         const data = await fs.readFile("metas.json", "utf-8")
+        //JSON.parse = trasnforma de javascript para json
         metas = JSON.parse(data)
     } catch (error) {
         console.error("Não foi possível carregar as metas", error)
@@ -22,6 +23,7 @@ const carregarMetas = async() => {
 
 const salvarMetas = async () => {
     try {
+        //JSON.stringify = transforma de json para javascript
         await fs.writeFile("metas.json", JSON.stringify(metas, null, 2));
     } catch (error) {
         console.error("Não foi possível salvar as metas", error)
@@ -29,6 +31,11 @@ const salvarMetas = async () => {
 }
 
 const cadastrarMeta = async () => {
+    if (metas.length == 0){
+        mensagem = "Você existem metas!"
+        return
+    }
+    // a constante meta recebe o valor do input
     const meta = await input ({message: "Digite a meta:"})
  //operadores de comparação
     if(meta.length == 0){
@@ -43,6 +50,10 @@ const cadastrarMeta = async () => {
 }
 
 const listarMetas = async () => { 
+    if (metas.length == 0){
+        mensagem = "Você existem metas!"
+        return
+    }
     //insere nessa lista respostas um checkbox que tem como opções a cópia da lista metas
     const respostas = await checkbox({
         message: "Use as setas para mudar de metas, o espaço para marcar ou desmarcar e o enter para finalizar esta etapa.",
@@ -72,6 +83,10 @@ const listarMetas = async () => {
 const metasRealizadas = async () => {
     //filtra as metas que estão marcadas como checked (realizadas) e coloca nessa nova lista
     //o filtro verifica dentro de metas, de meta em meta, quais estão com valor checked(marcada)
+    if (metas.length == 0){
+        mensagem = "Você existem metas!"
+        return
+    }
     const realizadas = metas.filter((meta) => {
         return meta.checked
     })
@@ -87,6 +102,10 @@ const metasRealizadas = async () => {
     })
 }
 const metasAbertas = async () => {
+    if (metas.length == 0){
+        mensagem = "Você existem metas!"
+        return
+    }
     //filtra as metas que não estão marcadas como checked (abertas) e coloca nessa nova lista
     const abertas = metas.filter((meta) => {
         return!meta.checked
@@ -102,6 +121,10 @@ const metasAbertas = async () => {
 
 }
 const deletarMetas = async () => {
+    if (metas.length == 0){
+        mensagem = "Você existem metas!"
+        return
+    }
 
     //foi criada uma nova lista para metasDesmarcadas através do map, somente com as que estáo falsas
     const metasDesmarcadas = metas.map((meta) => {
