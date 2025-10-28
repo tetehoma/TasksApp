@@ -1,7 +1,8 @@
-Criar metas
-Listas metas
-  -metas concluidas
-  -metas abertas
-Marcar metas realizadas
-Remover metas
-Ssistema de mensagem
+
+- Create Goals
+- Goal Lists
+- Completed Goals
+- Open Goals
+- Mark Goals Completed
+- Remove Goals
+- Message System
