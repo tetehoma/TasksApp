@@ -6,13 +6,13 @@ This MetasApp was created for manage goal of user facililate routines and achiev
 
 The funcionalitty is:
 
-Create Goals
-Goal Lists
-Completed Goals
-Open Goals
-Mark Goals Completed
-Remove Goals
-Message System
+- Create Goals
+- Goal Lists
+- Completed Goals
+- Open Goals
+- Mark Goals Completed
+- Remove Goals
+- Message System
 ## Referência
 
  - [PYTHON](https://www.python.org/)
