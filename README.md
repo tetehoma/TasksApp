@@ -13,9 +13,6 @@ The funcionalitty is:
 - Mark Goals Completed
 - Remove Goals
 - Message System
-## Referência
-
- - [PYTHON](https://www.python.org/)
  
 
 ## LinkedIn
