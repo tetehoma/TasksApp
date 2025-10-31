@@ -1,5 +1,5 @@
 
-#  MetasApp
+#  TasksApp
 
 This project was created with NLW Journey. 
 This MetasApp was created for manage goal of user facililate routines and achieve goals.
